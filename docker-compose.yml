@@ -84,6 +84,34 @@ services:
             - node_modules
     command: npm run start:dev
 
+# =====================
+# Payments microservice
+# =====================
+  payments-ms:
+    ports:
+      - ${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}
+    build:
+      context: ./payments-mshyb
+      dockerfile: dockerfile
+    container_name: payments-ms
+    environment:
+      - NATS_SERVERS=nats://nats-server:4222
+      - PORT=${PAYMENTS_MS_PORT}
+      - STRIPE_SECRET=${STRIPE_SECRET}
+      - STRIPE_SUCCESS_URL=${STRIPE_SUCCESS_URL}
+      - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
+      - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
+    develop:
+      watch:
+        - action: sync
+          path: ./payments-mshyb/src
+          target: /usr/src/app/src
+          ignore:
+            - node_modules
+    command: npm run start:dev
+
+
+
 # Definición de volúmenes para evitar que el archivo .vhdx crezca con basura
 volumes:
   orders_data:
