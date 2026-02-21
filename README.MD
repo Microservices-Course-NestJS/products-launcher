@@ -38,3 +38,39 @@ git submodule update --remote
 Si se trabaja en el repositorio que tiene los sub-módulos, **primero actualizar y hacer push** en el sub-módulo y **después** en el repositorio principal. 
 
 Si se hace al revés, se perderán las referencias de los sub-módulos en el repositorio principal y tendremos que resolver conflictos.
+
+
+## Trabajo Correcto con Submódulos
+
+Los submódulos apuntan a **commits específicos**, no a ramas.  
+Por eso, al ejecutar:
+
+```bash
+git submodule update --init --recursive
+```
+
+quedarán en **detached HEAD**.
+
+### Para trabajar correctamente:
+
+1. Entrar al submódulo:
+   ```bash
+   cd <submodule-directory>
+   ```
+
+2. Cambiar a la rama deseada:
+   ```bash
+   git switch <branch-name>
+   ```
+
+3. Realizar cambios y hacer push normalmente.
+
+4. Volver al monorepo y actualizar la referencia:
+   ```bash
+   cd ..
+   git add <submodule-directory>
+   git commit -m "chore: update submodule reference"
+   git push
+   ```
+
+> ❗ No se recomienda trabajar directamente en detached HEAD.
