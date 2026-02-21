@@ -31,7 +31,7 @@ services:
   products-ms:
     build:
       context: ./products-ms
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     container_name: products-ms
     environment:
       - PORT=3001
@@ -64,7 +64,7 @@ services:
   orders-ms:
     build:
       context: ./orders-ms
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     container_name: orders-ms
     depends_on:
       - nats-server
