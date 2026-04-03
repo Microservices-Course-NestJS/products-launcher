@@ -10,3 +10,6 @@
 [submodule "payments-mshyb"]
 	path = payments-mshyb
 	url = https://github.com/Microservices-Course-NestJS/payments-hybridmicroservice.git
+[submodule "auth-ms"]
+	path = auth-ms
+	url = https://github.com/Microservices-Course-NestJS/auth-ms.git
