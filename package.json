@@ -1,0 +1,24 @@
+{
+  "name": "03-products-launcher",
+  "version": "1.0.0",
+  "description": "1. Clonar el repositorio \r 2. Clonar ```.env.template``` y renombrarlo a ```.env```\r 3. Ejecutar el comando `docker compose up --build`\r ---\r En caso de que no se realicen cambios en archivos como package*.json, prisma*.ts o dockerfiles incluyendo el docker-compose.yml levantar unicamente los contenedores mediante `docker compose up --watch` o `docker compose up` y seleccionar la opcion Enable Watch en consola",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Microservices-Course-NestJS/products-launcher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Microservices-Course-NestJS/products-launcher/issues"
+  },
+  "homepage": "https://github.com/Microservices-Course-NestJS/products-launcher#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
