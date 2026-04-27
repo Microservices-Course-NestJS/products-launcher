@@ -74,3 +74,12 @@ quedarán en **detached HEAD**.
    ```
 
 > ❗ No se recomienda trabajar directamente en detached HEAD.
+
+# Prod
+
+1. Clonar el repositorio
+2. Crear un .env vasado en el .env.template
+3. Ejecutar el comando 
+```
+docker compose -f docker-compose.prod.yml build
+```
