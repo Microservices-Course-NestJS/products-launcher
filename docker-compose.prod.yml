@@ -8,7 +8,7 @@ services:
     build: 
       context: ./client-gateway
       dockerfile: dockerfile.prod
-    image: client-gateway-prod
+    image: ${URL_GOOGLE_CLOUD}/client-gateway
     ports:
       - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
     environment:
@@ -22,7 +22,7 @@ services:
       context: ./products-ms
       dockerfile: dockerfile.prod
     container_name: products-ms
-    image: products-ms-prod
+    image: ${URL_GOOGLE_CLOUD}/products-ms
     environment:
       - PORT=3001
       - DATABASE_URL=file:./prisma/dev.db
@@ -35,8 +35,8 @@ services:
       context: ./orders-ms
       dockerfile: dockerfile.prod
       args:
-        - DATABASE_URL=${ORDERS_DB}
-    image: orders-ms-prod
+        - ORDERS_DATABASE_URL=${ORDERS_DATABASE_DB}
+    image: ${URL_GOOGLE_CLOUD}/orders-ms
     depends_on:
       - nats-server
     environment:
@@ -44,7 +44,7 @@ services:
       # CORRECCIÓN: Apuntar al nombre del servicio en la red de Docker
       - NATS_SERVERS=${NATS_SERVERS}
       # CORRECCIÓN: El host de la DB es 'orders-db', NO 'nats-server'
-      - DATABASE_URL=${ORDERS_DB}
+      - DATABASE_URL=${ORDERS_DATABASE_DB}
 
 # =====================
 # Payments microservice
@@ -55,7 +55,7 @@ services:
     build:
       context: ./payments-mshyb
       dockerfile: dockerfile.prod
-    image: payments-mshyb-prod
+    image: ${URL_GOOGLE_CLOUD}/payments-mshyb
     container_name: payments-ms
     environment:
       - NATS_SERVERS=${NATS_SERVERS}
@@ -75,13 +75,9 @@ services:
       args:
         - DATABASE_URL=${DATABASE_URL}
     container_name: auth-ms
-    image: auth-ms-prod
+    image: ${URL_GOOGLE_CLOUD}/auth-ms
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - NATS_SERVERS=${NATS_SERVERS}
       - JWT_SECRET=${JWT_SECRET}
 
-
-# # Definición de volúmenes para evitar que el archivo .vhdx crezca con basura
-# volumes:
-#   orders_data:
