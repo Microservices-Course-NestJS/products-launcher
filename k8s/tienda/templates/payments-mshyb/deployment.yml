@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: payments-mshyb
+  name: payments-mshyb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-mshyb
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: payments-mshyb
+    spec:
+      containers:
+      - image: us-south1-docker.pkg.dev/gen-lang-client-0767378085/image-registry/payments-mshyb
+        name: payments-mshyb
+        resources: {}
+        env:
+          - name: PORT
+            value: "3003"
+          - name: NATS_SERVERS
+            value: "nats://nats-server:4222"
+          - name: STRIPE_CANCEL_URL
+            value: "http://localhost:3003/payments/cancel"
+          - name: STRIPE_SUCCESS_URL
+            value: "http://localhost:3003/payments/success"
+          - name: STRIPE_SECRET
+            valueFrom:
+              secretKeyRef:  
+                name: payments-secrets
+                key: stripe-secret
+          - name: STRIPE_ENDPOINT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: payments-secrets
+                key: stripe-endpoint-secret    
+status: {}

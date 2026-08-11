@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ordersms
+  name: ordersms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ordersms
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ordersms
+    spec:
+      containers:
+      - image: us-south1-docker.pkg.dev/gen-lang-client-0767378085/image-registry/orders-ms
+        name: orders-ms
+        env:
+        - name: NATS_SERVERS
+          value: "nats://nats-server:4222"
+        - name: PORT
+          value: "3002"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: orders-secrets
+              key: database_url
+        resources: {}
+status: {}

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: products
+  name: products
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      containers:
+      - image: us-south1-docker.pkg.dev/gen-lang-client-0767378085/image-registry/products-ms
+        name: products-ms
+        env:
+        - name: NATS_SERVERS
+          value: "nats://nats-server:4222"
+        - name: PORT
+          value: "3001"
+        - name: DATABASE_URL
+          value: "file:./prisma/dev.db"
+        resources: {}
+status: {}
